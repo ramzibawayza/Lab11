@@ -103,23 +103,23 @@ function Item(title, src) {
     var rand = Math.floor(Math.random() * range) + min
     return rand;
   }
-  
   function tableTotal() {
-  
+
     var tableBody = document.getElementById('Table');
   
   
     tableBody.innerHTML = '';
     
-
+    
     for (var i = 0; i < Item.all.length; i++) {
       var item = Item.all[i];
+      
       var row = addElement('tr', tableBody);
       addElement('td', row, item.title);
       addElement('td', row, '' + item.clickCtr + ' times');
       addElement('td', row, '' + item.shownCtr + ' times');
-
     }
+
   }
   
   function addElement(tag, container, text) {
@@ -154,7 +154,8 @@ function Item(title, src) {
       tableTotal();
   
       if(Item.roundCtr === Item.roundLimit) {
-  
+        randercharts();
+
         alert('No more clicking for you!');
   
         Item.container.removeEventListener('click', clickHand);
@@ -165,14 +166,59 @@ function Item(title, src) {
       }
     }
   }
+  function randercharts(){
+    var ItemArray =[];
+    var ClickArray=[];
+    var ShownArry=[];
+    for (let i = 0; i < Item.all.length; i++) {
+      var ItemInstent = Item.all[i];
+      ItemArray.push(ItemInstent.title + ' Vote');
+      ItemArray.push(ItemInstent.title + ' Shown');
+      ClickArray.push(ItemInstent.clickCtr);
+      ShownArry.push(ItemInstent.shownCtr);
+
+    }
+
+    var ctx = document.getElementById('Chart').getContext('2d');
+    var chart = new Chart(ctx, {
+      type:'bar',
+
+      data:{
+      labels: ['bag','banana','bathroom','boots','breakfast','bubblegum','chair','cthulhu','dog-duck ',
+      'dragon','pen','pet-sweep','scissors','shark','sweep','tauntaun','unicorn','usb','water-can','wine-glass'],
+      datasets: [
+        {
+            label: 'Item Votes',
+            backgroundColor: 'orangered',
+            borderColor: 'blue',
+            data: ClickArray,
+        }
+      ,
+      {
+        label: 'Item Shown',
+        backgroundColor: 'black',
+        borderColor: 'blue',
+        data: ShownArry,
+      }
+      ],
+      
+      options:{}
+    
+      }
+    });
+  }
+
   
-  // Notice that we're attaching event listener to the container, 
-  // but event.target will allow us to which child element was actually clicked
+  
   Item.container.addEventListener('click', clickHand);
   
   tableTotal();
   
   renderItems();
+
+
+
+
 
 
 
