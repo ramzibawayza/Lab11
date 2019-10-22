@@ -103,23 +103,34 @@ function Item(title, src) {
     var rand = Math.floor(Math.random() * range) + min
     return rand;
   }
-  function tableTotal() {
+  // function tableTotal() {
 
-    var tableBody = document.getElementById('Table');
+  //   var tableBody = document.getElementById('Table');
   
   
-    tableBody.innerHTML = '';
+  //   tableBody.innerHTML = '';
     
     
-    for (var i = 0; i < Item.all.length; i++) {
-      var item = Item.all[i];
+  //   for (var i = 0; i < Item.all.length; i++) {
+  //     var item = Item.all[i];
       
-      var row = addElement('tr', tableBody);
-      addElement('td', row, item.title);
-      addElement('td', row, '' + item.clickCtr + ' times');
-      addElement('td', row, '' + item.shownCtr + ' times');
-    }
+  //     var row = addElement('tr', tableBody);
+  //     addElement('td', row, item.title);
+  //     addElement('td', row, '' + item.clickCtr + ' times');
+  //     addElement('td', row, '' + item.shownCtr + ' times');
+  //   }
 
+  // }
+  function randersentnece() {
+    var containerSentence = document.getElementById('sentence');
+
+    for (let i = 0; i < Item.all.length; i++) {
+      var current = Item.all[i];
+      var sentence = current.title+ ' had ' + current.clickCtr + ' votes and was shown ' + current.shownCtr +' times';
+      addElement('li', containerSentence, sentence);
+
+    }
+    
   }
   
   function addElement(tag, container, text) {
@@ -144,18 +155,17 @@ function Item(title, src) {
       itemClicked = Item.rightObject;
     }
      else {
-      console.log('Um, what was clicked on???', clickedId);
     }
   
     if(itemClicked) {
       itemClicked.clickCtr++;
       Item.roundCtr++;
   
-      tableTotal();
+      // tableTotal();
   
       if(Item.roundCtr === Item.roundLimit) {
-        randercharts();
-
+        // randercharts();
+        randersentnece();
         alert('No more clicking for you!');
   
         Item.container.removeEventListener('click', clickHand);
@@ -212,13 +222,6 @@ function Item(title, src) {
   
   Item.container.addEventListener('click', clickHand);
   
-  tableTotal();
+  // tableTotal();
   
   renderItems();
-
-
-
-
-
-
-
