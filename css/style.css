@@ -64,3 +64,7 @@ transform: scale(1.8);
 color: #4b4075;
 
 }
+#sentence{
+  font-size: 65%;
+  padding-top: 85px;
+}
