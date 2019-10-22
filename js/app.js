@@ -1,5 +1,5 @@
 'use strict';
-function Item(title, src) {
+  function Item(title, src) {
     this.title = title;
     this.src = src;
     this.clickCtr = 0;
@@ -103,25 +103,38 @@ function Item(title, src) {
     var rand = Math.floor(Math.random() * range) + min
     return rand;
   }
-  function tableTotal() {
+  // function tableTotal() {
 
-    var tableBody = document.getElementById('Table');
+  //   var tableBody = document.getElementById('Table');
   
   
-    tableBody.innerHTML = '';
+  //   tableBody.innerHTML = '';
     
     
-    for (var i = 0; i < Item.all.length; i++) {
-      var item = Item.all[i];
+  //   for (var i = 0; i < Item.all.length; i++) {
+  //     var item = Item.all[i];
       
-      var row = addElement('tr', tableBody);
-      addElement('td', row, item.title);
-      addElement('td', row, '' + item.clickCtr + ' times');
-      addElement('td', row, '' + item.shownCtr + ' times');
-    }
+  //     var row = addElement('tr', tableBody);
+  //     addElement('td', row, item.title);
+  //     addElement('td', row, '' + item.clickCtr + ' times');
+  //     addElement('td', row, '' + item.shownCtr + ' times');
+  //   }
 
+  // }
+  function randersentnece() {
+    var containerSentence = document.getElementById('sentence');
+        containerSentence.innerHTML = '';
+
+    for (let i = 0; i < Item.all.length; i++) {
+      var current = Item.all[i];
+      var sentence = current.title+ ' had ' + current.clickCtr + ' votes and was shown ' + current.shownCtr +' times';
+      addElement('li', containerSentence, sentence);
+
+
+    }
+    
   }
-  
+
   function addElement(tag, container, text) {
     var element = document.createElement(tag);
     container.appendChild(element);
@@ -131,10 +144,13 @@ function Item(title, src) {
     return element;
   }
   
+  
   function clickHand(event) {
   
     var clickedId = event.target.id;
     var itemClicked;
+    updateItem()
+
   
     if(clickedId === 'leftimage') {
       itemClicked = Item.leftObject;
@@ -144,16 +160,17 @@ function Item(title, src) {
       itemClicked = Item.rightObject;
     }
      else {
-      console.log('Um, what was clicked on???', clickedId);
     }
   
     if(itemClicked) {
       itemClicked.clickCtr++;
       Item.roundCtr++;
-  
-      tableTotal();
+      
+      // tableTotal();
   
       if(Item.roundCtr === Item.roundLimit) {
+        randersentnece();
+        updateItem();
         randercharts();
 
         alert('No more clicking for you!');
@@ -166,6 +183,27 @@ function Item(title, src) {
       }
     }
   }
+
+  function updateItem() {
+    localStorage.setItem('orders', JSON.stringify(Item.all));
+  }
+  function getItem() {
+    var surveyItemsData = JSON.parse(localStorage.getItem('orders'));
+    if (surveyItemsData){
+      console.log('user has already saved their own prefs');
+      Item.all = surveyItemsData;
+      }    }
+
+      document.getElementById('clear').addEventListener('click',function () {
+        
+        localStorage.clear();
+        alert('you need reload page after that (just reload!)');
+      });
+
+      
+  
+
+
   function randercharts(){
     var ItemArray =[];
     var ClickArray=[];
@@ -212,13 +250,8 @@ function Item(title, src) {
   
   Item.container.addEventListener('click', clickHand);
   
-  tableTotal();
+  // tableTotal();
   
   renderItems();
-
-
-
-
-
-
-
+  // randersentnece();
+  getItem()
