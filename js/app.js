@@ -164,11 +164,11 @@
     if(itemClicked) {
       itemClicked.clickCtr++;
       Item.roundCtr++;
-      
+      randersentnece();
       // tableTotal();
   
       if(Item.roundCtr === Item.roundLimit) {
-        randersentnece();
+        // randersentnece();
         // updateItem();
         randercharts();
 
