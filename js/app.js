@@ -124,7 +124,6 @@
   function randersentnece() {
     var containerSentence = document.getElementById('sentence');
         containerSentence.innerHTML = '';
-
     for (let i = 0; i < Item.all.length; i++) {
       var current = Item.all[i];
       var sentence = current.title+ ' had ' + current.clickCtr + ' votes and was shown ' + current.shownCtr +' times';
@@ -170,10 +169,10 @@
   
       if(Item.roundCtr === Item.roundLimit) {
         randersentnece();
-        updateItem();
+        // updateItem();
         randercharts();
 
-        alert('No more clicking for you!');
+        alert('No more clicking for you! (Just reload');
   
         Item.container.removeEventListener('click', clickHand);
   
