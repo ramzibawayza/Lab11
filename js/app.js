@@ -160,7 +160,8 @@
     }
      else {
     }
-  
+
+
     if(itemClicked) {
       itemClicked.clickCtr++;
       Item.roundCtr++;
@@ -226,14 +227,14 @@
       datasets: [
         {
             label: 'Item Votes',
-            backgroundColor: 'orangered',
+            backgroundColor: '#4b4075',
             borderColor: 'blue',
             data: ClickArray,
         }
       ,
       {
         label: 'Item Shown',
-        backgroundColor: 'black',
+        backgroundColor: 'maroon',
         borderColor: 'blue',
         data: ShownArry,
       }
